@@ -7,13 +7,12 @@ class TransitionBuilder[S, E] (val transitionConfig: TransitionConfig[S, E]) {
   private var target: S = _
   private var event: E = _
 
-  def source(source: S): TransitionBuilder[S, E] = { this.source = source; this }
-  def target(target: S): TransitionBuilder[S, E] = { this.target = target; this }
-  def event(event: E): TransitionBuilder[S, E] = { this.event = event; this }
+  def source(source: S): this.type = { this.source = source; this }
+  def target(target: S): this.type = { this.target = target; this }
+  def event(event: E): this.type = { this.event = event; this }
 
   def and(): TransitionConfig[S, E] = transitionConfig
+  def end(): StateMachineBuilder[S, E] = transitionConfig.end()
 
-  def end(): StateMachineBuilder[S, E] = transitionConfig.end
-
-  private[builder] def build = new Transition(source, target, event)
+  private[builder] def build() = new Transition(source, target, event)
 }
