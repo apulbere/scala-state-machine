@@ -23,13 +23,13 @@ class GlobalListenerSpec extends FlatSpec with BeforeAndAfter with Matchers with
       .build()
   }
 
-  "global listener" should "be called" in {
+  "global listener" should "be called on status change" in {
     stateMachine.sendEvent("E1")
 
     (globalListener.execute _).verify(*).once()
   }
 
-  "global listener" should "not be called when status is not changed" in {
+  it should "not be called when status is not changed" in {
     stateMachine.sendEvent("EX")
 
     (globalListener.execute _).verify(*).never()
