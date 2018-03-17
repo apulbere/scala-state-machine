@@ -6,7 +6,7 @@ import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 
 class TransitionActionSpec extends FlatSpec with BeforeAndAfter with Matchers with MockFactory {
 
-  "action" should "be executed when the transition is triggered" in {
+  "action" should "be executed when a transition is triggered" in {
     val e1EventAction = stub[Action[String]]
     val stateMachine = new StateMachineBuilder[String, String]()
       .initialState("S1")

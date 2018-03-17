@@ -3,16 +3,13 @@ package com.apulbere.statemachine.builder
 import com.apulbere.statemachine.Action
 import com.apulbere.statemachine.model.Transition
 
-class TransitionBuilder[S, E] (val transitionConfig: TransitionConfig[S, E]) {
-  private var source: S = _
-  private var target: S = _
-  private var event: E = _
-  private var action: Option[Action[S]] = None
-  private var errorAction: Option[Action[S]] = None
+abstract class TransitionBuilder[S, E](private val config: TransitionConfig[S, E]) {
+  protected var source: S = _
+  protected var event: E = _
+  protected var action: Option[Action[S]] = None
+  protected var errorAction: Option[Action[S]] = None
 
   def source(source: S): this.type = { this.source = source; this }
-
-  def target(target: S): this.type = { this.target = target; this }
 
   def event(event: E): this.type = { this.event = event; this }
 
@@ -24,9 +21,11 @@ class TransitionBuilder[S, E] (val transitionConfig: TransitionConfig[S, E]) {
     this
   }
 
-  def and(): TransitionConfig[S, E] = transitionConfig
+  def and(): TransitionConfig[S, E] = config
 
-  def end(): StateMachineBuilder[S, E] = transitionConfig.end()
+  def end(): StateMachineBuilder[S, E] = config.end()
 
-  private[builder] def build() = new Transition(source, target, event, action, errorAction)
+  private[builder] def build(): Transition[S, E]
+  private[builder] def isValid(): Boolean = source != null && event != null
+
 }

@@ -2,22 +2,28 @@
 Scala state machine
 ## Features (described by unit tests)
 
-* TransitionFlowSpec
-    * the state machine
-        * should acquire S2 status when E1 is sent
-        * should acquire S3 status E4 is sent
-        * should acquire S3 status after 2 events are sent
-        * should preserve status for an unknown event
-* GlobalListenerSpec
-    * global listener
-        * should be called on status change
-        * should not be called when status is not changed
+* StateListenerSpec
+  * state listener
+    * should be called on state change
+    * should not be called when state is not changed
+* DirectTransitionSpec
+  * the state machine
+    * should acquire S2 state when E1 is sent
+    * should acquire S3 state when E4 is sent
+    * should acquire S3 state after 2 events are sent
+    * should preserve state for an unknown event
+* ChoiceTransitionSpec
+  * the state machine
+    * should acquire S2 state when first guard returns true
+    * should acquire S3 state when first guard returns false and second true
+    * should acquire S4 state when both guards return false
+    * should acquire S4 state when first guard returns false and second choice is not defined
 * TransitionActionSpec
-    * action
-        * should be executed when the transition is triggered
-        * should not be executed when a transition without action is triggered
-    * error action
-        * should be executed when an error occurs during transition
+  * action
+    * should be executed when a transition is triggered
+    * should not be executed when a transition without action is triggered
+  * error action
+    * should be executed when an error occurs during transition
 ## Example
 ```
 +------+     +------+     +------+

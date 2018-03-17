@@ -4,16 +4,16 @@ import com.apulbere.statemachine.builder.StateMachineBuilder
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 
-class GlobalListenerSpec extends FlatSpec with BeforeAndAfter with Matchers with MockFactory {
+class StateListenerSpec extends FlatSpec with BeforeAndAfter with Matchers with MockFactory {
   var stateMachine: StateMachine[String, String] = _
-  var globalListener: Action[String] = _
+  var stateListener: Action[String] = _
 
   before {
-    globalListener = stub[Action[String]]
+    stateListener = stub[Action[String]]
 
     stateMachine = new StateMachineBuilder[String, String]()
       .initialState("S1")
-      .globalListener(globalListener)
+      .stateListener(stateListener)
       .configureTransitions()
         .withTransition()
           .source("S1")
@@ -23,15 +23,15 @@ class GlobalListenerSpec extends FlatSpec with BeforeAndAfter with Matchers with
       .build()
   }
 
-  "global listener" should "be called on status change" in {
+  "state listener" should "be called on state change" in {
     stateMachine.sendEvent("E1")
 
-    (globalListener.execute _).verify(*).once()
+    (stateListener.execute _).verify(*).once()
   }
 
-  it should "not be called when status is not changed" in {
+  it should "not be called when state is not changed" in {
     stateMachine.sendEvent("EX")
 
-    (globalListener.execute _).verify(*).never()
+    (stateListener.execute _).verify(*).never()
   }
 }

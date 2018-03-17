@@ -2,8 +2,10 @@ package com.apulbere.statemachine.model
 
 import com.apulbere.statemachine.Action
 
-class Transition[S, E] (val source: S,
-                        val target: S,
-                        val event: E,
-                        val action: Option[Action[S]],
-                        val errorAction: Option[Action[S]])
+trait Transition[S, E] {
+  def target(stateContext: StateContext[S]): S
+  def source: S
+  def event: E
+  def action: Option[Action[S]]
+  def errorAction: Option[Action[S]]
+}

@@ -1,18 +1,26 @@
 package com.apulbere.statemachine.builder
 
-import com.apulbere.statemachine.impl.AbstractStateMachine
-import com.apulbere.statemachine.model.StateContext
+import com.apulbere.statemachine.impl.DefaultStateMachine
 import com.apulbere.statemachine.{Action, StateMachine}
 
 class StateMachineBuilder[S, E] {
   private var initialState: S = _
   private val transitionConfig = new TransitionConfig[S, E](this)
-  private var globalListener: Option[Action[S]] = None
+  private var stateListener: Action[S] = _
 
   def configureTransitions(): TransitionConfig[S, E] = transitionConfig
-  def globalListener(globalListener: Action[S]): this.type = { this.globalListener = Option(globalListener); this }
+
+  def stateListener(stateListener: Action[S]): this.type = { this.stateListener = stateListener; this }
+
   def initialState(initialState: S): this.type = { this.initialState = initialState; this }
+
+  def isValid(): Boolean = initialState != null && transitionConfig.isValid()
+
   def build(): StateMachine[S, E] = {
-    new AbstractStateMachine[S, E](new StateContext[S](initialState), transitionConfig.build(), globalListener)
+    if (isValid()) {
+      DefaultStateMachine[S, E](initialState, transitionConfig.build(), stateListener)
+    } else {
+      throw new IllegalStateException("Invalid state machine")
+    }
   }
 }

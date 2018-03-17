@@ -3,7 +3,7 @@ package com.apulbere.statemachine
 import com.apulbere.statemachine.builder.StateMachineBuilder
 import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 
-class TransitionFlowSpec extends FlatSpec with BeforeAndAfter with Matchers{
+class DirectTransitionSpec extends FlatSpec with BeforeAndAfter with Matchers {
   var stateMachine: StateMachine[String, String] = _
 
   before {
@@ -28,23 +28,23 @@ class TransitionFlowSpec extends FlatSpec with BeforeAndAfter with Matchers{
       .build()
   }
 
-  "the state machine" should "acquire S2 status when E1 is sent" in {
+  "the state machine" should "acquire S2 state when E1 is sent" in {
     stateMachine.sendEvent("E1")
     stateMachine.state() should equal("S2")
   }
 
-  it should "acquire S3 status E4 is sent" in {
+  it should "acquire S3 state when E4 is sent" in {
     stateMachine.sendEvent("E2")
     stateMachine.state() should equal("S3")
   }
 
-  it should "acquire S3 status after 2 events are sent" in {
+  it should "acquire S3 state after 2 events are sent" in {
     stateMachine.sendEvent("E1")
     stateMachine.sendEvent("E4")
     stateMachine.state() should equal("S3")
   }
 
-  it should "preserve status for an unknown event" in {
+  it should "preserve state for an unknown event" in {
     stateMachine.sendEvent("EX")
     stateMachine.state() should equal("S1")
   }
