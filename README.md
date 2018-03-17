@@ -1,7 +1,25 @@
 # About
 Scala state machine
-## Features (described by unit tests)
+## Features
+* fluent builder for state machine setup
+* comprehensive error message when setup is incomplete or faulty, e. g.:
+```
+Invalid state machine:
+    initial state is not defined
+    transition config
+        direct transition
+            target is not defined
+            source is not defined
+            event is not defined
+```
+* transitions
+    * direct transition - from state `A` to state `B`
+    * choice transition - from state `A` to state `B` if `guard == true`, otherwise to state `C`
+* state listener
+* transition action
+* transition error action
 
+### UT
 * StateListenerSpec
   * state listener
     * should be called on state change
@@ -43,7 +61,7 @@ Scala state machine
 
 ```
 val stateMachine = StateMachineBuilder()
-            .withInitialState("S1")
+            .initialState("S1")
             .configureTransitions()
                 .withTransition()
                     .source("S1")
