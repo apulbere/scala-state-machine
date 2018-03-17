@@ -2,6 +2,7 @@ package com.apulbere.statemachine.builder
 
 import com.apulbere.statemachine.Action
 import com.apulbere.statemachine.model.Transition
+import com.apulbere.statemachine.validator.{Condition, Validator}
 
 abstract class TransitionBuilder[S, E](private val config: TransitionConfig[S, E]) {
   protected var source: S = _
@@ -25,7 +26,13 @@ abstract class TransitionBuilder[S, E](private val config: TransitionConfig[S, E
 
   def end(): StateMachineBuilder[S, E] = config.end()
 
-  private[builder] def build(): Transition[S, E]
-  private[builder] def isValid(): Boolean = source != null && event != null
+  def validator(): Validator = {
+    val conditions = List(
+      Condition(() => source != null, "source is not defined"),
+      Condition(() => event != null, "event is not defined")
+    )
+    Validator("transition", conditions)
+  }
 
+  private[builder] def build(): Transition[S, E]
 }

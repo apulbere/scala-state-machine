@@ -2,6 +2,7 @@ package com.apulbere.statemachine.builder
 
 import com.apulbere.statemachine.Guard
 import com.apulbere.statemachine.model.{ChoiceTarget, ChoiceTransition, Transition}
+import com.apulbere.statemachine.validator.{Condition, Validator}
 
 class ChoiceTransitionBuilder[S, E](config: TransitionConfig[S, E]) extends TransitionBuilder[S, E](config) {
   private var choiceTargets = List.empty[ChoiceTarget[S]]
@@ -18,7 +19,9 @@ class ChoiceTransitionBuilder[S, E](config: TransitionConfig[S, E]) extends Tran
     ChoiceTransition(source, choiceTargets, lastTarget, event, action, errorAction)
   }
 
-  override private[builder] def isValid(): Boolean = super.isValid() && isChoiceTargetValid() && lastTarget != null
-
-  private def isChoiceTargetValid() = choiceTargets.forall(choiceTarget => choiceTarget.target != null && choiceTarget.guard != null)
+  override def validator(): Validator = {
+    val conditions = List(Condition(() => lastTarget != null, "last is not defined"))
+    val choiceTargetValidators = choiceTargets.map(_.validator())
+    Validator("choice transition", conditions, choiceTargetValidators) + super.validator()
+  }
 }

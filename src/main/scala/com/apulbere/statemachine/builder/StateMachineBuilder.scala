@@ -1,6 +1,7 @@
 package com.apulbere.statemachine.builder
 
 import com.apulbere.statemachine.impl.DefaultStateMachine
+import com.apulbere.statemachine.validator.{Condition, Validator}
 import com.apulbere.statemachine.{Action, StateMachine}
 
 class StateMachineBuilder[S, E] {
@@ -14,13 +15,19 @@ class StateMachineBuilder[S, E] {
 
   def initialState(initialState: S): this.type = { this.initialState = initialState; this }
 
-  def isValid(): Boolean = initialState != null && transitionConfig.isValid()
+  def validator(): Validator = {
+    val conditions = List(
+      Condition(() => initialState != null, "initial state is not defined")
+    )
+    Validator("state machine", conditions, List(transitionConfig.validator()))
+  }
 
   def build(): StateMachine[S, E] = {
-    if (isValid()) {
+    val validatorResult = validator().validate()
+    if(validatorResult.isValid) {
       DefaultStateMachine[S, E](initialState, transitionConfig.build(), stateListener)
     } else {
-      throw new IllegalStateException("Invalid state machine")
+      throw new IllegalStateException("Invalid state machine: " + validatorResult.message)
     }
   }
 }

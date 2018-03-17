@@ -24,6 +24,11 @@ Scala state machine
     * should not be executed when a transition without action is triggered
   * error action
     * should be executed when an error occurs during transition
+* ValidatorSpec
+  * the state machine builder
+    * should throw an exception with a detailed message when building an invalid choice transition
+    * should throw an exception with a detailed message when building an invalid direct transition
+
 ## Example
 ```
 +------+     +------+     +------+
