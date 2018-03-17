@@ -11,7 +11,7 @@ class StateListenerSpec extends FlatSpec with BeforeAndAfter with Matchers with 
   before {
     stateListener = stub[Action[String]]
 
-    stateMachine = new StateMachineBuilder[String, String]()
+    stateMachine = StateMachineBuilder()
       .initialState("S1")
       .stateListener(stateListener)
       .configureTransitions()

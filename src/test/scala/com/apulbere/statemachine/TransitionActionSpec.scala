@@ -8,7 +8,7 @@ class TransitionActionSpec extends FlatSpec with BeforeAndAfter with Matchers wi
 
   "action" should "be executed when a transition is triggered" in {
     val e1EventAction = stub[Action[String]]
-    val stateMachine = new StateMachineBuilder[String, String]()
+    val stateMachine = StateMachineBuilder()
       .initialState("S1")
       .configureTransitions()
         .withTransition()
@@ -26,7 +26,7 @@ class TransitionActionSpec extends FlatSpec with BeforeAndAfter with Matchers wi
 
   it should "not be executed when a transition without action is triggered" in {
     val e1EventAction = stub[Action[String]]
-    val stateMachine = new StateMachineBuilder[String, String]()
+    val stateMachine = StateMachineBuilder()
       .initialState("S1")
       .configureTransitions()
         .withTransition()
@@ -56,7 +56,7 @@ class TransitionActionSpec extends FlatSpec with BeforeAndAfter with Matchers wi
       statecontext.exception.get should equal(expectedException)
     }
 
-    val stateMachine = new StateMachineBuilder[String, String]()
+    val stateMachine = StateMachineBuilder()
       .initialState("S1")
       .configureTransitions()
         .withTransition()

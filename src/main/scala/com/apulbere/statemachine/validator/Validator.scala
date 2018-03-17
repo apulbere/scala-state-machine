@@ -8,20 +8,23 @@ case class Validator(
 
   def validate(): ValidatorResult = ValidatorResult(isValid(), message())
 
+  def +(validator: Validator): Validator = {
+    Validator(source, this.conditions ::: validator.conditions, this.validators ::: validator.validators)
+  }
+
   private def isValid(): Boolean = {
     conditions.forall(_.validationFunction()) && validators.forall(_.isValid())
   }
 
   private def message(): String = message(0).trim
 
-  def +(validator: Validator): Validator = {
-    Validator(source, this.conditions ::: validator.conditions, this.validators ::: validator.validators)
-  }
-
   private def message(indentation: Int): String = {
     val messageBuilder = new StringBuilder(enrichMessage(source, indentation))
     val newIndentation = indentation + 1
-    val conditionsMessage = conditions.filter(!_.validationFunction()).map(_.message).map(enrichMessage(_, newIndentation)).mkString
+    val conditionsMessage = conditions.filter(!_.validationFunction())
+      .map(_.message)
+      .map(enrichMessage(_, newIndentation))
+      .mkString
     messageBuilder.append(conditionsMessage)
     validators.foreach(validator => messageBuilder.append(validator.message(newIndentation)))
     messageBuilder.toString()

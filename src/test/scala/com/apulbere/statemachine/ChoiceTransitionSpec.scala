@@ -6,7 +6,7 @@ import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 class ChoiceTransitionSpec extends FlatSpec with BeforeAndAfter with Matchers {
 
   "the state machine" should "acquire S2 state when first guard returns true" in {
-    val stateMachine = new StateMachineBuilder[String, String]()
+    val stateMachine = StateMachineBuilder()
         .initialState("S1")
         .configureTransitions()
           .withChoiceTransition()
@@ -23,7 +23,7 @@ class ChoiceTransitionSpec extends FlatSpec with BeforeAndAfter with Matchers {
   }
 
   it should "acquire S3 state when first guard returns false and second true" in {
-    val stateMachine = new StateMachineBuilder[String, String]()
+    val stateMachine = StateMachineBuilder()
       .initialState("S1")
       .configureTransitions()
         .withChoiceTransition()
@@ -40,7 +40,7 @@ class ChoiceTransitionSpec extends FlatSpec with BeforeAndAfter with Matchers {
   }
 
   it should "acquire S4 state when both guards return false" in {
-    val stateMachine = new StateMachineBuilder[String, String]()
+    val stateMachine = StateMachineBuilder()
       .initialState("S1")
       .configureTransitions()
         .withChoiceTransition()
@@ -57,7 +57,7 @@ class ChoiceTransitionSpec extends FlatSpec with BeforeAndAfter with Matchers {
   }
 
   it should "acquire S4 state when first guard returns false and second choice is not defined" in {
-    val stateMachine = new StateMachineBuilder[String, String]()
+    val stateMachine = StateMachineBuilder()
       .initialState("S1")
       .configureTransitions()
         .withChoiceTransition()

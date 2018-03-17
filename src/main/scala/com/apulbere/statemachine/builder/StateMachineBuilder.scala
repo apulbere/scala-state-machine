@@ -31,3 +31,7 @@ class StateMachineBuilder[S, E] {
     }
   }
 }
+
+object StateMachineBuilder {
+  def apply[S, E](): StateMachineBuilder[S, E] = new StateMachineBuilder[S, E]()
+}

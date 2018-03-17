@@ -42,7 +42,7 @@ Scala state machine
 ```
 
 ```
-val stateMachine = new StateMachineBuilder[String, String]()
+val stateMachine = StateMachineBuilder()
             .withInitialState("S1")
             .configureTransitions()
                 .withTransition()

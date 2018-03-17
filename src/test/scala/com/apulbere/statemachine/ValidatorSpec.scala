@@ -22,7 +22,7 @@ class ValidatorSpec extends FlatSpec with BeforeAndAfter with Matchers {
       """.stripMargin.trim
 
     try {
-      new StateMachineBuilder[String, String]()
+      StateMachineBuilder()
         .configureTransitions()
           .withChoiceTransition()
             .choice(null, null)
@@ -46,7 +46,7 @@ class ValidatorSpec extends FlatSpec with BeforeAndAfter with Matchers {
       """.stripMargin.trim
 
     try {
-      new StateMachineBuilder[String, String]()
+      StateMachineBuilder()
         .initialState("S1")
         .configureTransitions()
           .withTransition()
