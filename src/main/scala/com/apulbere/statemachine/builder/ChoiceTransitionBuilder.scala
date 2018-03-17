@@ -5,10 +5,10 @@ import com.apulbere.statemachine.model.{ChoiceTransition, Transition}
 import com.apulbere.statemachine.validator.{Condition, Validator}
 
 class ChoiceTransitionBuilder[S, E](config: TransitionConfig[S, E]) extends TransitionBuilder[S, E](config) {
-  private var choiceTargetBuilders = List.empty[ChoiceTargetBuilder[S]]
+  private var choiceTargetBuilders = List.empty[ChoiceTargetBuilder[S, E]]
   private var lastTarget: S = _
 
-  def choice(target: S, guard: Guard[S]): this.type = {
+  def choice(target: S, guard: Guard[S, E]): this.type = {
     choiceTargetBuilders = choiceTargetBuilders :+ new ChoiceTargetBuilder(target, guard)
     this
   }

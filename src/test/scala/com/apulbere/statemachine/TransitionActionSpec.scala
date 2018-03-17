@@ -7,8 +7,8 @@ import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 class TransitionActionSpec extends FlatSpec with BeforeAndAfter with Matchers with MockFactory {
 
   "action" should "be executed when a transition is triggered" in {
-    val e1EventAction = stub[Action[String]]
-    val stateMachine = StateMachineBuilder()
+    val e1EventAction = stub[Action[String, String]]
+    val stateMachine = StateMachineBuilder[String, String]()
       .initialState("S1")
       .configureTransitions()
         .withTransition()
@@ -25,8 +25,8 @@ class TransitionActionSpec extends FlatSpec with BeforeAndAfter with Matchers wi
   }
 
   it should "not be executed when a transition without action is triggered" in {
-    val e1EventAction = stub[Action[String]]
-    val stateMachine = StateMachineBuilder()
+    val e1EventAction = stub[Action[String, String]]
+    val stateMachine = StateMachineBuilder[String, String]()
       .initialState("S1")
       .configureTransitions()
         .withTransition()
@@ -50,13 +50,15 @@ class TransitionActionSpec extends FlatSpec with BeforeAndAfter with Matchers wi
   "error action" should "be executed when an error occurs during transition" in {
     val expectedException = new Exception("dummy")
 
-    val e1EventAction: Action[String] = _ => throw expectedException
+    val e1EventAction: Action[String, String] = _ => throw expectedException
 
-    val e1EventErrorAction: Action[String] = statecontext => {
-      statecontext.exception.get should equal(expectedException)
+    val e1EventErrorAction: Action[String, String] = stateContext => {
+      stateContext.state should equal("S1")
+      stateContext.event should equal(None)
+      stateContext.exception.get should equal(expectedException)
     }
 
-    val stateMachine = StateMachineBuilder()
+    val stateMachine = StateMachineBuilder[String, String]()
       .initialState("S1")
       .configureTransitions()
         .withTransition()

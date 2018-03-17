@@ -7,7 +7,7 @@ class DirectTransitionSpec extends FlatSpec with BeforeAndAfter with Matchers {
   var stateMachine: StateMachine[String, String] = _
 
   before {
-    stateMachine = StateMachineBuilder()
+    stateMachine = StateMachineBuilder[String, String]()
         .initialState("S1")
         .configureTransitions()
           .withTransition()

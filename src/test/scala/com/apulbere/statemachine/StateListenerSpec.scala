@@ -5,13 +5,14 @@ import org.scalamock.scalatest.MockFactory
 import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 
 class StateListenerSpec extends FlatSpec with BeforeAndAfter with Matchers with MockFactory {
-  var stateMachine: StateMachine[String, String] = _
-  var stateListener: Action[String] = _
 
-  before {
-    stateListener = stub[Action[String]]
+  "state listener" should "be called on state change" in {
+    val stateListener: Action[String, String] = stateContext => {
+      stateContext.state should equal("S2")
+      stateContext.event.get should equal("E1")
+    }
 
-    stateMachine = StateMachineBuilder()
+    val stateMachine = StateMachineBuilder[String, String]()
       .initialState("S1")
       .stateListener(stateListener)
       .configureTransitions()
@@ -21,15 +22,25 @@ class StateListenerSpec extends FlatSpec with BeforeAndAfter with Matchers with 
           .event("E1")
         .end()
       .build()
-  }
 
-  "state listener" should "be called on state change" in {
     stateMachine.sendEvent("E1")
-
-    (stateListener.execute _).verify(*).once()
+    stateMachine.state() should equal("S2")
   }
 
   it should "not be called when state is not changed" in {
+    val stateListener = stub[Action[String, String]]
+
+    val stateMachine = StateMachineBuilder[String, String]()
+      .initialState("S1")
+      .stateListener(stateListener)
+      .configureTransitions()
+        .withTransition()
+          .source("S1")
+          .target("S2")
+          .event("E1")
+        .end()
+      .build()
+
     stateMachine.sendEvent("EX")
 
     (stateListener.execute _).verify(*).never()

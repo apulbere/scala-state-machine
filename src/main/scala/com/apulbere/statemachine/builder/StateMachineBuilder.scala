@@ -7,11 +7,11 @@ import com.apulbere.statemachine.{Action, StateMachine}
 class StateMachineBuilder[S, E] {
   private var initialState: S = _
   private val transitionConfig = new TransitionConfig[S, E](this)
-  private var stateListener: Action[S] = _
+  private var stateListener: Action[S, E] = _
 
   def configureTransitions(): TransitionConfig[S, E] = transitionConfig
 
-  def stateListener(stateListener: Action[S]): this.type = { this.stateListener = stateListener; this }
+  def stateListener(stateListener: Action[S, E]): this.type = { this.stateListener = stateListener; this }
 
   def initialState(initialState: S): this.type = { this.initialState = initialState; this }
 

@@ -2,7 +2,7 @@
 Scala state machine
 ## Features
 * fluent builder for state machine setup
-* comprehensive error message when setup is incomplete or faulty, e. g.:
+* comprehensive error message when setup is incomplete or faulty, e. g.
 ```
 Invalid state machine:
     initial state is not defined
@@ -19,7 +19,7 @@ Invalid state machine:
 * transition action
 * transition error action
 
-### UT
+### [UT](Test Results - ScalaTests_in_'test'.html)
 * StateListenerSpec
   * state listener
     * should be called on state change

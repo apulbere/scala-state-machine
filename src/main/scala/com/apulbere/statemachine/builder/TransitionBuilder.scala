@@ -7,16 +7,16 @@ import com.apulbere.statemachine.validator.{Condition, Validator}
 abstract class TransitionBuilder[S, E](private val config: TransitionConfig[S, E]) {
   protected var source: S = _
   protected var event: E = _
-  protected var action: Option[Action[S]] = None
-  protected var errorAction: Option[Action[S]] = None
+  protected var action: Option[Action[S, E]] = None
+  protected var errorAction: Option[Action[S, E]] = None
 
   def source(source: S): this.type = { this.source = source; this }
 
   def event(event: E): this.type = { this.event = event; this }
 
-  def action(action: Action[S]): this.type = { this.action = Option(action); this }
+  def action(action: Action[S, E]): this.type = { this.action = Option(action); this }
 
-  def action(action: Action[S], errorAction: Action[S]): this.type = {
+  def action(action: Action[S, E], errorAction: Action[S, E]): this.type = {
     this.action = Option(action)
     this.errorAction = Option(errorAction)
     this

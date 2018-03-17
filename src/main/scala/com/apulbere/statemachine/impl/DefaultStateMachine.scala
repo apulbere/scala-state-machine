@@ -5,9 +5,9 @@ import com.apulbere.statemachine.{Action, StateMachine}
 
 import scala.util.{Failure, Success, Try}
 
-class DefaultStateMachine[S, E](private var stateContext: StateContext[S],
+class DefaultStateMachine[S, E](private var stateContext: StateContext[S, E],
                                 private val transitions: List[Transition[S, E]],
-                                private val stateListener: Option[Action[S]])
+                                private val stateListener: Option[Action[S, E]])
   extends StateMachine[S, E] {
 
   override def state(): S = stateContext.state
@@ -22,7 +22,7 @@ class DefaultStateMachine[S, E](private var stateContext: StateContext[S],
 
   private def executeTransition(transition: Transition[S, E]): Unit = {
     val transitionTarget = transition.target(stateContext)
-    val newStateContext = stateContext.copy(state = transitionTarget)
+    val newStateContext = stateContext.copy(state = transitionTarget, event = Option(transition.event))
 
     Try(transition.action.foreach(_.execute(newStateContext))) match {
       case Success(_) => onSuccessTransition(newStateContext)
@@ -31,7 +31,7 @@ class DefaultStateMachine[S, E](private var stateContext: StateContext[S],
     }
   }
 
-  private def onSuccessTransition(newStateContext: StateContext[S]): Unit = {
+  private def onSuccessTransition(newStateContext: StateContext[S, E]): Unit = {
     this.stateContext = newStateContext
     stateListener.foreach(_.execute(newStateContext))
   }
@@ -43,8 +43,8 @@ class DefaultStateMachine[S, E](private var stateContext: StateContext[S],
 }
 
 object DefaultStateMachine {
-  def apply[S, E](initialState: S, transitions: List[Transition[S, E]], stateListener: Action[S]): StateMachine[S, E] = {
-    val stateContext = new StateContext[S](initialState)
+  def apply[S, E](initialState: S, transitions: List[Transition[S, E]], stateListener: Action[S, E]): StateMachine[S, E] = {
+    val stateContext = new StateContext[S, E](initialState)
     new DefaultStateMachine[S, E](stateContext, transitions, Option(stateListener))
   }
 }
