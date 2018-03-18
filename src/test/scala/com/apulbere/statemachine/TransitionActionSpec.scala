@@ -1,6 +1,7 @@
 package com.apulbere.statemachine
 
 import com.apulbere.statemachine.builder.StateMachineBuilder
+import com.apulbere.statemachine.model.State
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.{FlatSpec, Matchers}
 
@@ -53,9 +54,9 @@ class TransitionActionSpec extends FlatSpec with Matchers with MockFactory {
     val e1EventAction: Action[String, String] = _ => throw expectedException
 
     val e1EventErrorAction: Action[String, String] = stateContext => {
-      stateContext.state should equal("S1")
-      stateContext.event should equal(None)
-      stateContext.exception.get should equal(expectedException)
+      stateContext.source should equal(State("S1"))
+      stateContext.target should equal(Option(State("S2", "E1")))
+      stateContext.exception should equal(Some(expectedException))
     }
 
     val stateMachine = StateMachineBuilder[String, String]()

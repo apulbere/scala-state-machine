@@ -1,6 +1,7 @@
 package com.apulbere.statemachine
 
 import com.apulbere.statemachine.builder.StateMachineBuilder
+import com.apulbere.statemachine.model.State
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.{FlatSpec, Matchers}
 
@@ -8,8 +9,7 @@ class StateListenerSpec extends FlatSpec with Matchers with MockFactory {
 
   "state listener" should "be called on state change" in {
     val stateListener: Action[String, String] = stateContext => {
-      stateContext.state should equal("S2")
-      stateContext.event.get should equal("E1")
+      stateContext.target should equal(Option(State("S2", "E1")))
     }
 
     val stateMachine = StateMachineBuilder[String, String]()

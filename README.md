@@ -18,7 +18,7 @@ Invalid state machine:
 * state listener
 * transition action
 * transition error action
-* [unit tests](https://apulbere.github.io/scala-state-machine/Test%20Results%20-%20ScalaTests_in_'test'.html)
+* unit tests
 
 ## Example
 ```
