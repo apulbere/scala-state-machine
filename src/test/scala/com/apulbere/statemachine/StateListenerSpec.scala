@@ -2,9 +2,9 @@ package com.apulbere.statemachine
 
 import com.apulbere.statemachine.builder.StateMachineBuilder
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
+import org.scalatest.{FlatSpec, Matchers}
 
-class StateListenerSpec extends FlatSpec with BeforeAndAfter with Matchers with MockFactory {
+class StateListenerSpec extends FlatSpec with Matchers with MockFactory {
 
   "state listener" should "be called on state change" in {
     val stateListener: Action[String, String] = stateContext => {

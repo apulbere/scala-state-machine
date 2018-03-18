@@ -1,9 +1,9 @@
 package com.apulbere.statemachine
 
 import com.apulbere.statemachine.builder.StateMachineBuilder
-import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
+import org.scalatest.{FlatSpec, Matchers}
 
-class ChoiceTransitionSpec extends FlatSpec with BeforeAndAfter with Matchers {
+class ChoiceTransitionSpec extends FlatSpec with Matchers {
 
   "the state machine" should "acquire S2 state when first guard returns true" in {
     val stateMachine = StateMachineBuilder[String, String]()

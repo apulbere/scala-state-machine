@@ -18,34 +18,7 @@ Invalid state machine:
 * state listener
 * transition action
 * transition error action
-
-### [UT](Test Results - ScalaTests_in_'test'.html)
-* StateListenerSpec
-  * state listener
-    * should be called on state change
-    * should not be called when state is not changed
-* DirectTransitionSpec
-  * the state machine
-    * should acquire S2 state when E1 is sent
-    * should acquire S3 state when E4 is sent
-    * should acquire S3 state after 2 events are sent
-    * should preserve state for an unknown event
-* ChoiceTransitionSpec
-  * the state machine
-    * should acquire S2 state when first guard returns true
-    * should acquire S3 state when first guard returns false and second true
-    * should acquire S4 state when both guards return false
-    * should acquire S4 state when first guard returns false and second choice is not defined
-* TransitionActionSpec
-  * action
-    * should be executed when a transition is triggered
-    * should not be executed when a transition without action is triggered
-  * error action
-    * should be executed when an error occurs during transition
-* ValidatorSpec
-  * the state machine builder
-    * should throw an exception with a detailed message when building an invalid choice transition
-    * should throw an exception with a detailed message when building an invalid direct transition
+* [unit tests](https://apulbere.github.io/scala-state-machine/Test%20Results%20-%20ScalaTests_in_'test'.html)
 
 ## Example
 ```

@@ -2,9 +2,9 @@ package com.apulbere.statemachine
 
 import com.apulbere.statemachine.builder.StateMachineBuilder
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
+import org.scalatest.{FlatSpec, Matchers}
 
-class TransitionActionSpec extends FlatSpec with BeforeAndAfter with Matchers with MockFactory {
+class TransitionActionSpec extends FlatSpec with Matchers with MockFactory {
 
   "action" should "be executed when a transition is triggered" in {
     val e1EventAction = stub[Action[String, String]]

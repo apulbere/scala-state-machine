@@ -572,8 +572,8 @@ jQuery.cookie = function(name, value, options) {
 <body>
 <div id="container">
 <div id="header">
-<div class="time" xmlns="">274 ms</div>
-<h1>ScalaTests in 'test': <strong><span class="total" xmlns="http://www.w3.org/1999/xhtml">15 total, </span><span class="passed">15 passed</span></strong>
+<div class="time" xmlns="">827 ms</div>
+<h1>ScalaTests in 'test': <strong><span class="total" xmlns="http://www.w3.org/1999/xhtml">17 total, </span><span class="passed">17 passed</span></strong>
 </h1>
 <div id="treecontrol">
 <ul>
@@ -591,22 +591,22 @@ jQuery.cookie = function(name, value, options) {
 <ul id="tree">
 <li xmlns="" class="level top open">
 <span><em class="time">
-<div class="time">134 ms</div>
+<div class="time">648 ms</div>
 </em>StateListenerSpec</span>
 <ul>
 <li class="level suite open">
 <span><em class="time">
-<div class="time">134 ms</div>
+<div class="time">648 ms</div>
 </em>state listener</span>
 <ul>
 <li class="level test">
 <span><em class="time">
-<div class="time">78 ms</div>
+<div class="time">355 ms</div>
 </em><em class="status">passed</em>should be called on state change</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">56 ms</div>
+<div class="time">293 ms</div>
 </em><em class="status">passed</em>should not be called when state is not changed</span>
 </li>
 </ul>
@@ -615,12 +615,12 @@ jQuery.cookie = function(name, value, options) {
 </li>
 <li class="level top open">
 <span><em class="time">
-<div class="time">12 ms</div>
+<div class="time">5 ms</div>
 </em>DirectTransitionSpec</span>
 <ul>
 <li class="level suite open">
 <span><em class="time">
-<div class="time">12 ms</div>
+<div class="time">5 ms</div>
 </em>the state machine</span>
 <ul>
 <li class="level test">
@@ -630,17 +630,17 @@ jQuery.cookie = function(name, value, options) {
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">9 ms</div>
+<div class="time">2 ms</div>
 </em><em class="status">passed</em>should acquire S3 state when E4 is sent</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">1 ms</div>
+<div class="time">0 ms</div>
 </em><em class="status">passed</em>should acquire S3 state after 2 events are sent</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">1 ms</div>
+<div class="time">2 ms</div>
 </em><em class="status">passed</em>should preserve state for an unknown event</span>
 </li>
 </ul>
@@ -649,22 +649,53 @@ jQuery.cookie = function(name, value, options) {
 </li>
 <li class="level top open">
 <span><em class="time">
-<div class="time">40 ms</div>
+<div class="time">138 ms</div>
+</em>StateContextVariableSpec</span>
+<ul>
+<li class="level suite open">
+<span><em class="time">
+<div class="time">135 ms</div>
+</em>the state machine</span>
+<ul>
+<li class="level test">
+<span><em class="time">
+<div class="time">135 ms</div>
+</em><em class="status">passed</em>should acquire S2 due to 'variableIsBiggerThanTen' guard</span>
+</li>
+</ul>
+</li>
+<li class="level suite open">
+<span><em class="time">
+<div class="time">3 ms</div>
+</em>the state machine</span>
+<ul>
+<li class="level test">
+<span><em class="time">
+<div class="time">3 ms</div>
+</em><em class="status">passed</em>should forget variable on next transition</span>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="level top open">
+<span><em class="time">
+<div class="time">6 ms</div>
 </em>ValidatorSpec</span>
 <ul>
 <li class="level suite open">
 <span><em class="time">
-<div class="time">40 ms</div>
+<div class="time">6 ms</div>
 </em>the state machine builder</span>
 <ul>
 <li class="level test">
 <span><em class="time">
-<div class="time">38 ms</div>
+<div class="time">5 ms</div>
 </em><em class="status">passed</em>should throw an exception with a detailed message when building an invalid choice transition</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">2 ms</div>
+<div class="time">1 ms</div>
 </em><em class="status">passed</em>should throw an exception with a detailed message when building an invalid direct transition</span>
 </li>
 </ul>
@@ -673,22 +704,22 @@ jQuery.cookie = function(name, value, options) {
 </li>
 <li class="level top open">
 <span><em class="time">
-<div class="time">54 ms</div>
+<div class="time">12 ms</div>
 </em>ChoiceTransitionSpec</span>
 <ul>
 <li class="level suite open">
 <span><em class="time">
-<div class="time">54 ms</div>
+<div class="time">12 ms</div>
 </em>the state machine</span>
 <ul>
 <li class="level test">
 <span><em class="time">
-<div class="time">43 ms</div>
+<div class="time">3 ms</div>
 </em><em class="status">passed</em>should acquire S2 state when first guard returns true</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">4 ms</div>
+<div class="time">2 ms</div>
 </em><em class="status">passed</em>should acquire S3 state when first guard returns false and second true</span>
 </li>
 <li class="level test">
@@ -707,34 +738,34 @@ jQuery.cookie = function(name, value, options) {
 </li>
 <li class="level top open">
 <span><em class="time">
-<div class="time">34 ms</div>
+<div class="time">18 ms</div>
 </em>TransitionActionSpec</span>
 <ul>
 <li class="level suite open">
 <span><em class="time">
-<div class="time">29 ms</div>
+<div class="time">12 ms</div>
 </em>action</span>
 <ul>
 <li class="level test">
 <span><em class="time">
-<div class="time">10 ms</div>
+<div class="time">9 ms</div>
 </em><em class="status">passed</em>should be executed when a transition is triggered</span>
 </li>
 <li class="level test">
 <span><em class="time">
-<div class="time">19 ms</div>
+<div class="time">3 ms</div>
 </em><em class="status">passed</em>should not be executed when a transition without action is triggered</span>
 </li>
 </ul>
 </li>
 <li class="level suite open">
 <span><em class="time">
-<div class="time">5 ms</div>
+<div class="time">6 ms</div>
 </em>error action</span>
 <ul>
 <li class="level test">
 <span><em class="time">
-<div class="time">5 ms</div>
+<div class="time">6 ms</div>
 </em><em class="status">passed</em>should be executed when an error occurs during transition</span>
 </li>
 </ul>
@@ -745,7 +776,7 @@ jQuery.cookie = function(name, value, options) {
 </div>
 </div>
 <div id="footer">
-<p>Generated by IntelliJ IDEA on 3/18/18 1:48 AM</p>
+<p>Generated by IntelliJ IDEA on 3/18/18 2:31 AM</p>
 </div>
 </body>
 </html>
